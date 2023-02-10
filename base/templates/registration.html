@@ -1,0 +1,46 @@
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+</style>
+</head>
+<body>
+
+<form action="" method="post">
+
+  <div class="container">
+    <h1>Register</h1>
+    <p>Please fill in this form to create an account.</p>
+    <hr>
+  {{ registration_form }}
+      {% for field in registration_form %}
+        <p>
+            {% for error in field.errors %}
+                <p style="color: red">{{ error }}</p>
+            {% endfor %}
+                                </p>
+      {% endfor %}
+      {% if registration_form.non_field_errors %}
+          <div style="color: red">
+              <p>{{registration_form.non_field_errors}}</p>
+          </div>
+
+      {% endif %}
+      {% csrf_token %}
+      <button type="submit" class="">Register</button>
+
+
+  </div>
+
+  <div class="container signin">
+    <p>Already have an account? <a href="{% url 'base:logout' %}">Sign in</a>.</p>
+  </div>
+</form>
+
+</body>
+</html>

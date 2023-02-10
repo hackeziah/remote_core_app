@@ -1,0 +1,16 @@
+<html>
+<head>
+    <title>Welcome</title>
+</head>
+<body>
+<h1> Hello welcome to page! {{ user }}</h1>
+
+{% if full_name  %}
+    <h3>Fullname: {{full_name }}</h3>
+{% endif %}
+
+<div>
+    <p>Are you sure you want to Sign Out? <a href="{% url 'base:logout' %}"> Sign Out</a>.</p>
+</div>
+</body>
+</html>

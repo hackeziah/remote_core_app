@@ -1,0 +1,81 @@
+{#<html>#}
+{#<head>#}
+{#    <title>Login Page</title>#}
+{#</head>#}
+{#<body>#}
+{#<h1>Login Page</h1>#}
+{##}
+{#<form class="form-signin" method="POST">#}
+{#      {% if error_message %}#}
+{#          <div style="color: red">#}
+{#              <p>{{error_message}}</p>#}
+{#          </div>#}
+{##}
+{#      {% endif %}#}
+{##}
+{#<div class="form-group mb-3">#}
+{#                                    <label for="emailaddress">Email address</label>#}
+{#                                    <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>#}
+{#                                </div>#}
+{#                                <div class="form-group mb-3">#}
+{#                                    <label for="password">Password</label>#}
+{#                                    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>#}
+{#                                </div>#}
+{#                                {% for field in login_form %}#}
+{#                                <p>#}
+{#                                    {% for error in field.errors %}#}
+{#                                    <p style="color: red">{{ error }}</p>#}
+{#                                    {% endfor %}#}
+{#                                </p>#}
+{#                                {% endfor %} {% if login_form.non_field_errors %}#}
+{#                                <div style="color: red">#}
+{#                                    <p>{{login_form.non_field_errors}}</p>#}
+{#                                </div>#}
+{#                                {% endif %}#}
+{#                                <div class="form-group mb-0 text-center">#}
+{#                                    <button class="btn btn-danger btn-block" type="submit">#}
+{#                                        Log In#}
+{#                                    </button>#}
+{#                                </div>#}
+{#                                {% csrf_token %}#}
+{#                            </form>#}
+{##}
+{##}
+{#</body>#}
+{#</html>#}
+{##}
+{% block content %}
+
+  {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>Your account doesn't have access to this page. To proceed,
+      please login with an account that has access.</p>
+    {% else %}
+      <p>Please login to see this page.</p>
+    {% endif %}
+  {% endif %}
+
+  <form method="post" action="">
+    {% csrf_token %}
+    <table>
+      <tr>
+        <td>{{ login_form.username.label_tag }}</td>
+        <td>{{ login_form.username }}</td>
+      </tr>
+      <tr>
+        <td>{{ login_form.password.label_tag }}</td>
+        <td>{{ login_form.password }}</td>
+      </tr>
+    </table>
+    <input type="submit" value="login">
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+{#  <p><a href="{% url 'password_reset' %}">Lost password?</a></p>#}
+
+{% endblock %}
